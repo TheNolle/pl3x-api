@@ -63,9 +63,20 @@
 
     <repositories>
         <repository>
+            <id>spigotmc-snapshots</id>
+            <name>SpigotMC Snapshots</name>
+            <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
+        </repository>
+        <repository>
             <id>modrinth</id>
             <name>Modrinth Repo</name>
             <url>https://api.modrinth.com/maven</url>
+            <releases>
+                <checksumPolicy>ignore</checksumPolicy>
+            </releases>
+            <snapshots>
+                <checksumPolicy>ignore</checksumPolicy>
+            </snapshots>
         </repository>
         <repository>
             <id>central</id>
