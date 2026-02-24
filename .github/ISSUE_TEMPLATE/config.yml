@@ -1,0 +1,14 @@
+blank_issues_enabled: false
+
+contact_links:
+  - name: Security Vulnerability
+    url: https://github.com/thenolle/pl3x-api/security/advisories/new
+    about: Do not open a public issue for security vulnerabilities. Use a private advisory instead.
+
+  - name: Pl3xMap Issues
+    url: https://github.com/BillyGalbreath/Pl3xMap/issues
+    about: Issues with Pl3xMap itself should be reported to the Pl3xMap project directly.
+
+  - name: Documentation
+    url: https://thenolle.github.io/pl3x-api/
+    about: Browse the full KDoc API reference.
