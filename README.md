@@ -35,7 +35,7 @@ Add the Nexus releases repository and the dependency to your `pom.xml`:
     <dependency>
         <groupId>com.nolly</groupId>
         <artifactId>pl3x-api</artifactId>
-        <version>1.0.0</version>
+        <version>1.0.1</version>
     </dependency>
 </dependencies>
 ```
@@ -48,7 +48,7 @@ repositories {
 }
 
 dependencies {
-	implementation("com.nolly:pl3x-api:1.0.0")
+	implementation("com.nolly:pl3x-api:1.0.1")
 }
 ```
 
