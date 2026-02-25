@@ -8,6 +8,32 @@ import net.pl3x.map.core.event.RegisteredHandler
 import net.pl3x.map.core.event.server.Pl3xMapDisabledEvent
 import net.pl3x.map.core.event.server.Pl3xMapEnabledEvent
 
+/**
+ * Plugin lifecycle manager for Pl3xMap integration.
+ *
+ * **Required Usage in Plugin:**
+ *
+ * ```
+ * class MyPlugin : JavaPlugin() {
+ *   override fun onEnable() {
+ *     Pl3xBootstrap.attach()
+ *     Pl3xBootstrap.onEnabled {
+ *       logger.info("Pl3xMap ready!")
+ *       // Safe to use Pl3xAPI here
+ *     }
+ *     Pl3xBootstrap.onDisabled {
+ *       logger.info("Pl3xMap shutdown")
+ *     }
+ *   }
+ *
+ *   override fun onDisable() {
+ *     Pl3xBootstrap.detach()
+ *   }
+ * }
+ * ```
+ *
+ * Handles Pl3xMap lifecycle, context readiness, and event bridge.
+ */
 object Pl3xBootstrap {
 	private var attached = false
 	private val enabledListeners = mutableListOf<() -> Unit>()
@@ -27,6 +53,13 @@ object Pl3xBootstrap {
 		}
 	}
 
+	/**
+	 * Attaches lifecycle listener + event bridge to Pl3xMap.
+	 *
+	 * **Idempotent:** Safe to call multiple times.
+	 *
+	 * Call in `JavaPlugin.onEnable()`.
+	 */
 	fun attach() {
 		if (attached) return
 		attached = true
@@ -34,6 +67,13 @@ object Pl3xBootstrap {
 		Pl3xEventBridge.register()
 	}
 
+	/**
+	 * Detaches all listeners + resets context.
+	 *
+	 * Cleans up via reflection for graceful shutdown.
+	 *
+	 * Call in `JavaPlugin.onDisable()`.
+	 */
 	fun detach() {
 		if (!attached) return
 		attached = false
@@ -54,13 +94,29 @@ object Pl3xBootstrap {
 		}
 	}
 
+	/**
+	 * Adds callback for [Pl3xMapEnabledEvent].
+	 *
+	 * Called once after Pl3xMap fully initializes.
+	 * First safe point to use `Pl3xAPI`.
+	 */
 	fun onEnabled(block: () -> Unit) {
 		enabledListeners += block
 	}
 
+	/**
+	 * Adds callback for [Pl3xMapDisabledEvent].
+	 *
+	 * Called once before Pl3xMap shutdown.
+	 */
 	fun onDisabled(block: () -> Unit) {
 		disabledListeners += block
 	}
 
+	/**
+	 * True when Pl3xMapEnabledEvent fired.
+	 *
+	 * `Pl3xAPI` safe to use when true.
+	 */
 	val isReady: Boolean get() = Pl3xContext.isReady
 }

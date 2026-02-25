@@ -5,6 +5,12 @@ import net.pl3x.map.core.markers.Vector
 import net.pl3x.map.core.markers.marker.Icon
 import net.pl3x.map.core.markers.option.Options
 
+/**
+ * Custom image icon marker at [point] using registered [imageKey].
+ *
+ * Supports [size], [anchor], [rotationAngle], and [rotationOrigin].
+ * Created via `MarkerBuilder.iconMarker()` or `LayerScope.iconMarker()`.
+ */
 class MapIconMarker(
 	key: String,
 	val point: Point,

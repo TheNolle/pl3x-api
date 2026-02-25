@@ -4,6 +4,11 @@ import net.pl3x.map.core.markers.Point
 import net.pl3x.map.core.markers.marker.Circle
 import net.pl3x.map.core.markers.option.Options
 
+/**
+ * Circle marker centered at [center] with given [radius] (block units).
+ *
+ * Created via `MarkerBuilder.circle()` or `LayerScope.circle()`.
+ */
 class MapCircle(
 	key: String,
 	val center: Point,

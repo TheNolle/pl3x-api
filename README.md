@@ -461,7 +461,7 @@ player.raw()         // raw Pl3xMap Player
 
 ## License
 
-This project is licensed under the [Nolly’s Pl3x API Proprietary License v1.4](./LICENSE).  
+This project is licensed under the [Nolly’s Pl3x API Proprietary License v1.4](LICENSE.md).  
 All rights reserved © 2026 Nolly. Commercial use requires explicit permission.
 
 > Use, modification, and distribution are allowed only under the terms of the license. Attribution is required. Commercial use requires permission.

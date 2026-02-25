@@ -4,6 +4,11 @@ import net.pl3x.map.core.markers.Point
 import net.pl3x.map.core.markers.marker.Polyline
 import net.pl3x.map.core.markers.option.Options
 
+/**
+ * Connected line through [points] sequence.
+ *
+ * Created via `MarkerBuilder.polyline()` or `LayerScope.polyline()`.
+ */
 class MapPolyline(
 	key: String,
 	val points: List<Point>,

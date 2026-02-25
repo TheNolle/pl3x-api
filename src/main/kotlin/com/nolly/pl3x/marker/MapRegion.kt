@@ -5,6 +5,12 @@ import net.pl3x.map.core.markers.marker.Polygon
 import net.pl3x.map.core.markers.marker.Polyline
 import net.pl3x.map.core.markers.option.Options
 
+/**
+ * Complex polygon region with [points] boundary + optional [holes].
+ *
+ * [holes] define interior cutouts (lakes, etc.).
+ * Created via `MarkerBuilder.region()` or `LayerScope.region()`.
+ */
 class MapRegion(
 	key: String,
 	val points: List<Point>,

@@ -4,6 +4,12 @@ import net.pl3x.map.core.markers.Point
 import net.pl3x.map.core.markers.marker.Ellipse
 import net.pl3x.map.core.markers.option.Options
 
+/**
+ * Ellipse marker with separate X/Z radii and optional [tilt].
+ *
+ * [tilt] rotates ellipse from horizontal (0° = circle-aligned).
+ * Created via `MarkerBuilder.ellipse()` or `LayerScope.ellipse()`.
+ */
 class MapEllipse(
 	key: String,
 	val center: Point,

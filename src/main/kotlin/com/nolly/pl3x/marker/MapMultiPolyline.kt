@@ -5,6 +5,12 @@ import net.pl3x.map.core.markers.marker.MultiPolyline
 import net.pl3x.map.core.markers.marker.Polyline
 import net.pl3x.map.core.markers.option.Options
 
+/**
+ * Multiple independent polylines sharing style/options.
+ *
+ * Each inner list is one continuous line segment.
+ * Created via `MarkerBuilder.multiPolyline()` or `LayerScope.multiPolyline()`.
+ */
 class MapMultiPolyline(
 	key: String,
 	val lines: List<List<Point>>,

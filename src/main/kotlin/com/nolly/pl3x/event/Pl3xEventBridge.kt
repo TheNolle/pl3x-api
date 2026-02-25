@@ -12,6 +12,18 @@ import net.pl3x.map.core.event.world.WorldUnloadedEvent
 import net.pl3x.map.core.world.World
 import java.util.concurrent.CopyOnWriteArrayList
 
+/**
+ * Bridges Pl3xMap core events to simple Kotlin lambdas.
+ *
+ * Registers internal listeners and forwards events to your callbacks.
+ * Automatically handles registration on Pl3xMap startup.
+ *
+ * ```
+ * Pl3xEventBridge.onWorldLoad { world ->
+ *   println("World ${world.name} loaded")
+ * }
+ * ```
+ */
 object Pl3xEventBridge {
 	private val worldLoadListeners = CopyOnWriteArrayList<(World) -> Unit>()
 	private val worldUnloadListeners = CopyOnWriteArrayList<(World) -> Unit>()
@@ -47,12 +59,22 @@ object Pl3xEventBridge {
 		}
 	}
 
+	/**
+	 * Registers this bridge with Pl3xMap's event registry.
+	 *
+	 * Idempotent: safe to call multiple times.
+	 */
 	fun register() {
 		if (registered) return
 		registered = true
 		Pl3xMap.api().eventRegistry.register(listener)
 	}
 
+	/**
+	 * Unregisters all listeners and clears callbacks.
+	 *
+	 * Cleans up reflection-based handler removal for graceful shutdown.
+	 */
 	fun unregister() {
 		if (!registered) return
 		registered = false
@@ -75,26 +97,66 @@ object Pl3xEventBridge {
 		}
 	}
 
+	/**
+	 * Adds callback for [WorldLoadedEvent].
+	 *
+	 * Called when any world loads in the server.
+	 *
+	 * @param block Lambda receiving the loaded [World]
+	 */
 	fun onWorldLoad(block: (World) -> Unit) {
 		worldLoadListeners += block
 	}
 
+	/**
+	 * Adds callback for [WorldUnloadedEvent].
+	 *
+	 * Called when any world unloads from the server.
+	 *
+	 * @param block Lambda receiving the unloaded [World]
+	 */
 	fun onWorldUnload(block: (World) -> Unit) {
 		worldUnloadListeners += block
 	}
 
+	/**
+	 * Adds callback for [Pl3xMapEnabledEvent].
+	 *
+	 * Called once when Pl3xMap plugin fully initializes.
+	 *
+	 * @param block No-arg lambda
+	 */
 	fun onMapEnabled(block: () -> Unit) {
 		mapEnabledListeners += block
 	}
 
+	/**
+	 * Adds callback for [Pl3xMapDisabledEvent].
+	 *
+	 * Called once when Pl3xMap plugin shuts down.
+	 *
+	 * @param block No-arg lambda
+	 */
 	fun onMapDisabled(block: () -> Unit) {
 		mapDisabledListeners += block
 	}
 
+	/**
+	 * Adds callback for [ServerLoadedEvent].
+	 *
+	 * Called once after server fully loads (post-worlds).
+	 *
+	 * @param block No-arg lambda
+	 */
 	fun onServerLoaded(block: () -> Unit) {
 		serverLoadedListeners += block
 	}
 
+	/**
+	 * Clears all registered callbacks without unregistering listeners.
+	 *
+	 * Use before re-registering new handlers.
+	 */
 	fun clearAll() {
 		worldLoadListeners.clear()
 		worldUnloadListeners.clear()

@@ -282,4 +282,4 @@ A good feature request includes:
 ## License
 
 By contributing, you agree that your contributions will be covered under the project's license.  
-See [LICENSE](../LICENSE) for full terms.
+See [LICENSE](../LICENSE.md) for full terms.
